@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        {% for obj in object_list %}
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h3 class="card-title">{{ obj.name }}</h3>
+                    <p class="card-text">
+                        <a href="{{ obj.csv_file.url }}" download>Нажми для скачивания</a>
+                    </p>
+                    Колонки:
+                    {% for head in headers %}
+                    <span class="card-text">
+                        {% if head.uploaded_file_id == obj.pk %}
+                        {{ head.column_name }} |
+                        {% endif %}
+                    </span>
+                    {% endfor %}
+
+                    <p class="card-text"><small class="text-muted">{{ obj.upload_date }}</small></p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
